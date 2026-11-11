@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PaySauce login prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/primevue@4/umd/primevue.min.js"></script>
+<script src="https://unpkg.com/@primevue/themes@4/umd/aura.min.js"></script>
+<link rel="stylesheet" href="login.css">
+</head>
+<body>
+<div id="app"></div>
+
+<!-- The template below is the same one as Login.vue, verbatim. -->
+<script type="text/x-template" id="login-template">
+  <div class="ps-login" :class="['opt-' + option, { 'has-sky': sky, 'has-card': card }]">
+    <div v-if="sky" class="sky" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i><i class="s5"></i><i class="s6"></i></div>
+
+    <!-- top bar: logo and, for D and E, the country switch -->
+    <header class="top" :class="{ 'top-inline': option === 'E' }">
+      <a class="brand" href="#" aria-label="PaySauce">
+        <img v-if="logo === 'script'" class="brand-script" src="assets/paysauce-script-red.svg" alt="PaySauce">
+        <span v-else class="brand-lockup">
+          <img class="brand-mark" src="assets/au-mark.svg" alt="">
+          <img class="brand-word" src="assets/au-wordmark.svg" alt="PaySauce">
+        </span>
+      </a>
+      <Select v-if="regionSwitch" v-model="region" :options="regions" optionLabel="name" class="region" aria-label="Country">
+        <template #value="{ value }">
+          <span class="region-value"><i class="globe" aria-hidden="true"></i>{{ value.name }}</span>
+        </template>
+        <template #dropdownicon><i class="chev" aria-hidden="true"></i></template>
+      </Select>
+    </header>
+
+    <main class="stage">
+      <form class="card" @submit.prevent>
+        <h1 class="title">{{ title }}</h1>
+        <label class="label" for="email">Email<i>*</i></label>
+        <InputText id="email" v-model="email" type="email" placeholder="Email" class="field" autocomplete="email" />
+        <Button type="submit" label="Next" class="next" />
+        <p class="foot">Don't have an account? <a href="#">Sign up</a></p>
+      </form>
+    </main>
+
+    <span class="option-tag">Option {{ option }}</span>
+  </div>
+</script>
+
+<script>
+const { createApp, ref, computed } = Vue;
+const option = (new URLSearchParams(location.search).get('option') || 'A').toUpperCase();
+
+const Login = {
+  template: '#login-template',
+  props: { option: { type: String, default: 'A' } },
+  setup(props) {
+    // What differs between the five options. Everything else is shared.
+    const spec = {
+      A: { sky: true,  card: true,  logo: 'script', regionSwitch: false },
+      B: { sky: false, card: false, logo: 'script', regionSwitch: false },
+      C: { sky: true,  card: true,  logo: 'script', regionSwitch: false },
+      D: { sky: true,  card: true,  logo: 'script', regionSwitch: true  },
+      E: { sky: true,  card: true,  logo: 'lockup', regionSwitch: true  },
+    }[props.option] || {};
+    const regions = [{ name: 'Australia', code: 'au' }, { name: 'New Zealand', code: 'nz' }];
+    const region = ref(regions[0]);
+    const email = ref('');
+    const mobile = ref(matchMedia('(max-width: 639px)').matches);
+    matchMedia('(max-width: 639px)').addEventListener('change', e => mobile.value = e.matches);
+    // The phone designs say just "Login"; the desktop ones say where you are.
+    const title = computed(() => mobile.value ? 'Login' : 'Login to PaySauce Australia');
+    return { ...spec, regions, region, email, title };
+  }
+};
+
+// Left and right arrow keys step through the options; the address bar follows, so a link still works.
+const ORDER = ['A', 'B', 'C', 'D', 'E'];
+createApp({
+  components: { Login },
+  template: '<Login :option="option" :key="option" />',
+  data: () => ({ option: ORDER.includes(option) ? option : 'A' }),
+  mounted() {
+    window.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+      const i = ORDER.indexOf(this.option);
+      this.option = ORDER[(i + (e.key === 'ArrowRight' ? 1 : ORDER.length - 1)) % ORDER.length];
+      history.replaceState(null, '', '?option=' + this.option);
+    });
+  }
+})
+  .use(PrimeVue.Config, { theme: { preset: PrimeVue.Themes.Aura } })
+  .component('InputText', PrimeVue.InputText)
+  .component('Button', PrimeVue.Button)
+  .component('Select', PrimeVue.Select)
+  .mount('#app');
+</script>
+</body>
+</html>

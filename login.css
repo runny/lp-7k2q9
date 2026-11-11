@@ -1,0 +1,110 @@
+/* PaySauce login: five options, one stylesheet.
+   Measured from the Figma frames (desktop 1280 x 900, phone 390 x 844) and the live login app.
+   Desktop values first, phone overrides at the bottom. Same file is used by Login.vue. */
+
+:root {
+  --ink: #3A0600;          /* heading ink, the live AU site's own value */
+  --chilli: #D84727;
+  --next: #E6836C;         /* the login app's Next button */
+  --link: #E04C2B;
+  --field-border: #DDDDDD;
+  --placeholder: #999999;
+  --text: #333333;
+  --tag: #B9B8B3;          /* the tiny option label */
+  --font: Montserrat, sans-serif;   /* the login app's face */
+  --font-ui: Inter, sans-serif;     /* the website's face, used on the country switch */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #app { margin: 0; min-height: 100%; }
+body { font-family: var(--font); color: var(--text); background: #fff; -webkit-font-smoothing: antialiased; }
+
+.ps-login { position: relative; min-height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+
+/* ---- the sky: the /au/start background, built from the brand ramps. Six soft pools on a pale base. */
+.sky { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+       background: linear-gradient(#FBFCFE 0%, #FEFAF6 46%, #FFFDF8 100%); }
+.sky i { position: absolute; display: block; border-radius: 50%; filter: blur(60px); }
+.sky .s1 { width: 78vw; height: 52vw; left: -14vw; top: -22vw; background: #BFC3FA; opacity: .30; }
+.sky .s2 { width: 66vw; height: 44vw; right: -12vw; top: -18vw; background: #DEDDFC; opacity: .42; }
+.sky .s3 { width: 92vw; height: 46vw; left: -6vw; top: 6vw; background: #F4B6C3; opacity: .30; }
+.sky .s4 { width: 70vw; height: 40vw; right: -10vw; top: 26vw; background: #FFA38D; opacity: .28; }
+.sky .s5 { width: 86vw; height: 44vw; left: -10vw; bottom: -16vw; background: #F1D499; opacity: .40; }
+.sky .s6 { width: 74vw; height: 34vw; right: -8vw; bottom: -14vw; background: #FAF4E3; opacity: .62; }
+.sky::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 38vh;
+              background: linear-gradient(to top, rgba(222,231,238,.55), rgba(222,231,238,0)); }
+
+/* ---- top bar */
+.top { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between;
+       padding: 31px 56px 0 61px; min-height: 40px; }
+.brand { display: inline-flex; align-items: center; text-decoration: none; }
+.brand-script { width: 118px; height: auto; display: block; }
+.brand-lockup { display: inline-flex; align-items: center; gap: 7px; }
+.brand-mark { width: 34px; height: 34px; }
+.brand-word { height: 23px; width: auto; transform: translateY(2px); }
+
+/* Option A: the logo sits centred above the card instead of top left */
+.opt-A .top { justify-content: center; padding-top: 200px; }
+.opt-A .brand-script { width: 150px; }
+.opt-A .stage { padding-top: 24px; }
+
+/* ---- the country switch (D and E): PrimeVue Select, dressed to the design */
+.region.p-select { width: 161px; height: 40px; border: 1px solid var(--field-border); border-radius: 4px;
+                   background: #fff; box-shadow: none; font-family: var(--font-ui); align-items: center; }
+.region .p-select-label { padding: 0 0 0 7px; font: 600 16px/19px var(--font-ui); color: #000; }
+.region .p-select-dropdown { width: 32px; color: var(--ink); }
+.region-value { display: inline-flex; align-items: center; gap: 10px; }
+.globe { width: 24px; height: 24px; display: inline-block;
+         background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M2.5 12h19M12 2.5c3 3.2 3 15.8 0 19M12 2.5c-3 3.2-3 15.8 0 19M4.5 7.5h15M4.5 16.5h15'/%3E%3C/svg%3E") center/contain no-repeat; }
+.chev { width: 16px; height: 16px; display: inline-block;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A0600' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat; }
+.p-select-overlay { font-family: var(--font-ui); }
+.p-select-option { font-size: 15px; }
+
+/* ---- the card */
+.stage { position: relative; z-index: 1; flex: 1; display: flex; align-items: flex-start; justify-content: center;
+         padding: 158px 16px 40px; }
+.card { width: 512px; max-width: 100%; background: #fff; border-radius: 6px; padding: 24px 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+.title { margin: 0; padding-bottom: 12px; border-bottom: 1px solid var(--ink); text-align: center;
+         font: 700 22px/27px var(--font); color: var(--ink); }
+.label { display: block; margin: 30px 0 8px; font: 600 15px/18px var(--font); color: var(--ink); }
+.label i { font-style: normal; color: var(--link); }
+.field.p-inputtext { width: 100%; height: 44px; padding: 0 16px; border: 1px solid var(--field-border); border-radius: 4px;
+                     background: #fff; box-shadow: none; font: 400 16px/44px var(--font); color: #222; }
+.field.p-inputtext::placeholder { color: var(--placeholder); }
+.field.p-inputtext:focus { border-color: var(--ink); outline: none; }
+.next.p-button { width: 100%; height: 50px; margin-top: 16px; border: 0; border-radius: 4px; background: var(--next);
+                 color: #fff; font: 500 18px/50px var(--font); box-shadow: none; justify-content: center; }
+.next.p-button:hover { background: #E04C2B; }
+.foot { margin: 26px 0 0; text-align: center; font: 400 15px/18px var(--font); color: var(--text); }
+.foot a { color: var(--link); text-decoration: none; }
+
+/* Option B: no card, the form sits straight on white */
+.opt-B .card { background: transparent; box-shadow: none; padding-top: 0; }
+
+/* ---- the tiny option label */
+.option-tag { position: fixed; right: 12px; bottom: 10px; z-index: 5; font: 400 12px/1 var(--font); color: var(--tag); pointer-events: none; }
+
+/* ======== phone (the 390 designs) ======== */
+@media (max-width: 639px) {
+  .top { padding: 34px 12px 0; justify-content: center; }
+  .brand-script { width: 140px; }
+  .opt-A .top { padding-top: 34px; }
+  .opt-A .brand-script { width: 140px; }
+  .opt-B .top, .opt-C .top, .opt-D .top { padding-top: 150px; }
+  .stage { padding: 26px 12px 40px; }
+  .opt-A .stage { padding-top: 26px; }
+  .card { width: 100%; background: rgba(255,255,255,.9); border-radius: 10px; padding: 48px 24px 28px; }
+  .title { font: 600 20px/24px var(--font); color: #222; border-bottom-color: #222; padding-bottom: 14px; }
+  .label { margin: 26px 0 10px; font: 600 17px/21px var(--font); color: #222; }
+  .field.p-inputtext { height: 52px; border-radius: 6px; font: 400 18px/52px var(--font); }
+  .next.p-button { margin-top: 22px; border-radius: 6px; }
+  .foot { margin-top: 28px; font: 400 16px/20px var(--font); }
+  .opt-B .card { padding-top: 0; }
+  /* D on the phone: the design carries no country switch, so it is hidden here */
+  .opt-D .region { display: none; }
+  /* E on the phone: logo and country switch share one row just above the card */
+  .opt-E .top { padding: 215px 20px 0; justify-content: space-between; }
+  .opt-E .stage { padding-top: 25px; }
+}
