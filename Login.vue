@@ -1,5 +1,5 @@
 <!--
-  PaySauce login screen, five layout options.
+  Login screen, five layout options.
   PrimeVue 4 components (InputText, Button, Select). Styling lives in login.css, same file the
   HTML prototype uses, so what Gary sees in the browser is what this renders.
   Pick the option with the `option` prop ("A" to "E"). Drop the option tag before shipping.
