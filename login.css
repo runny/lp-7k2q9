@@ -65,7 +65,7 @@ body { font-family: var(--font); color: var(--text); background: #fff; -webkit-f
 .stage { position: relative; z-index: 1; flex: 1; display: flex; align-items: flex-start; justify-content: center;
          padding: 158px 16px 40px; }
 .card { width: 512px; max-width: 100%; background: #fff; border-radius: 6px; padding: 24px 16px;
-        box-shadow: 0 2px 6px rgba(0,0,0,.06), 0 14px 36px rgba(0,0,0,.14); }
+        box-shadow: none; }
 .title { margin: 0; padding-bottom: 12px; border-bottom: 1px solid var(--ink); text-align: center;
          font: 700 22px/27px var(--font); color: var(--ink); }
 .label { display: block; margin: 30px 0 8px; font: 600 15px/18px var(--font); color: var(--ink); }
