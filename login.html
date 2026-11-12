@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Login</title>
+<title>PaySauce login prototype</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
@@ -14,6 +14,7 @@
 <body>
 <div id="app"></div>
 
+<!-- The template below is the same one as Login.vue, verbatim. -->
 <script type="text/x-template" id="login-template">
   <div class="ps-login" :class="['opt-' + option, { 'has-sky': sky, 'has-card': card }]">
     <div v-if="sky" class="sky" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i><i class="s5"></i><i class="s6"></i></div>
@@ -70,8 +71,8 @@ const Login = {
     const email = ref('');
     const mobile = ref(matchMedia('(max-width: 639px)').matches);
     matchMedia('(max-width: 639px)').addEventListener('change', e => mobile.value = e.matches);
-    // The phone designs say just "Login"; the desktop ones say where you are.
-    const title = computed(() => mobile.value ? 'Login' : 'Login to PaySauce Australia');
+    // The title stays "Login" everywhere, as on the live page.
+    const title = computed(() => 'Login');
     return { ...spec, regions, region, email, title };
   }
 };
