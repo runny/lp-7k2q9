@@ -8,6 +8,11 @@
   --p-focus-ring-color: transparent; --p-focus-ring-shadow: none;
   --p-highlight-background: #FDF4E8; --p-highlight-color: #3A0600; --p-highlight-focus-background: #F5D6CE; --p-highlight-focus-color: #3A0600;
   --p-form-field-hover-border-color: #DDDDDD; --p-form-field-focus-border-color: #DDDDDD;
+  --p-inputtext-hover-border-color: #DDDDDD; --p-inputtext-focus-border-color: #DDDDDD; --p-inputtext-focus-ring-shadow: none;
+  --p-select-hover-border-color: #DDDDDD; --p-select-focus-border-color: #DDDDDD; --p-select-focus-ring-shadow: none;
+  --p-select-option-focus-background: #FDF4E8; --p-select-option-focus-color: #3A0600;
+  --p-select-option-selected-background: #FDF4E8; --p-select-option-selected-color: #3A0600;
+  --p-select-option-selected-focus-background: #F5D6CE; --p-select-option-selected-focus-color: #3A0600;
   --ink: #3A0600;          /* heading ink, the live AU site's own value */
   --chilli: #D84727;
   --next: #E6836C;         /* the login app's Next button */
@@ -114,3 +119,8 @@ body { font-family: var(--font); color: var(--text); background: #fff; -webkit-f
   .opt-E .top { padding: 215px 20px 0; justify-content: space-between; }
   .opt-E .stage { padding-top: 25px; }
 }
+
+/* beat PrimeVue's own state selectors so the live app's grey borders win */
+.ps-login .field.p-inputtext:enabled:hover, .ps-login .field.p-inputtext:enabled:focus { border-color: #DDDDDD; box-shadow: none; }
+.ps-login .region.p-select:not(.p-disabled):hover, .ps-login .region.p-select:not(.p-disabled).p-focus { border-color: #DDDDDD; box-shadow: none; }
+.p-select-option:not(.p-disabled).p-focus, .p-select-option.p-select-option-selected { background: #FDF4E8; color: #3A0600; }
