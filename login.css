@@ -3,6 +3,11 @@
    Desktop values first, phone overrides at the bottom. Same file is used by Login.vue. */
 
 :root {
+  /* PrimeVue theme variables: keep the default green out of everything */
+  --p-primary-color: #D84727; --p-primary-hover-color: #C23409; --p-primary-active-color: #BB371A; --p-primary-contrast-color: #fff;
+  --p-focus-ring-color: transparent; --p-focus-ring-shadow: none;
+  --p-highlight-background: #FDF4E8; --p-highlight-color: #3A0600; --p-highlight-focus-background: #F5D6CE; --p-highlight-focus-color: #3A0600;
+  --p-form-field-hover-border-color: #DDDDDD; --p-form-field-focus-border-color: #DDDDDD;
   --ink: #3A0600;          /* heading ink, the live AU site's own value */
   --chilli: #D84727;
   --next: #E6836C;         /* the login app's Next button */
@@ -49,6 +54,7 @@ body { font-family: var(--font); color: var(--text); background: #fff; -webkit-f
 .opt-A .stage { padding-top: 24px; }
 
 /* ---- the country switch (D and E): PrimeVue Select, dressed to the design */
+.region.p-select:hover, .region.p-select.p-focus { border-color: var(--field-border); }
 .region.p-select { width: 161px; height: 40px; border: 1px solid var(--field-border); border-radius: 4px;
                    background: #fff; box-shadow: none; font-family: var(--font-ui); align-items: center; }
 .region .p-select-label { padding: 0 0 0 7px; font: 600 16px/19px var(--font-ui); color: #000; }
@@ -73,10 +79,13 @@ body { font-family: var(--font); color: var(--text); background: #fff; -webkit-f
 .field.p-inputtext { width: 100%; height: 44px; padding: 0 16px; border: 1px solid var(--field-border); border-radius: 4px;
                      background: #fff; box-shadow: none; font: 400 16px/44px var(--font); color: #222; }
 .field.p-inputtext::placeholder { color: var(--placeholder); }
-.field.p-inputtext:focus { border-color: var(--ink); outline: none; }
-.next.p-button { width: 100%; height: 50px; margin-top: 16px; border: 0; border-radius: 4px; background: var(--next);
-                 color: #fff; font: 500 18px/50px var(--font); box-shadow: none; justify-content: center; }
-.next.p-button:hover { background: #E04C2B; }
+.field.p-inputtext:hover, .field.p-inputtext:focus { border-color: var(--field-border); outline: none; }   /* the live app: border stays grey */
+.ps-login .next.p-button { width: 100%; height: 50px; margin-top: 16px; border: 0; border-radius: 4px; background: #D84727;
+                           color: #fff; font: 500 18px/50px var(--font); box-shadow: none; justify-content: center;
+                           transition: background .1s ease-in-out; }
+.ps-login .next.p-button:not(:disabled):hover { background: #C23409; }   /* the live app: hover:bg-[#c23409] */
+.ps-login .next.p-button:disabled { opacity: .7; }                        /* the live app fades Next until the email is typed */
+.ps-login .next.p-button:focus-visible, .ps-login .field.p-inputtext:focus, .ps-login .region.p-select.p-focus { outline: 0; box-shadow: none; }
 .foot { margin: 26px 0 0; text-align: center; font: 400 15px/18px var(--font); color: var(--text); }
 .foot a { color: var(--link); text-decoration: none; }
 

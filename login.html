@@ -41,7 +41,7 @@
         <h1 class="title">{{ title }}</h1>
         <label class="label" for="email">Email<i>*</i></label>
         <InputText id="email" v-model="email" type="email" placeholder="Email" class="field" autocomplete="email" />
-        <Button type="submit" label="Next" class="next" />
+        <Button type="submit" label="Next" class="next" :disabled="!email" />
         <p class="foot">Don't have an account? <a href="#">Sign up</a></p>
       </form>
     </main>
