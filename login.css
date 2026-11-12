@@ -2,7 +2,7 @@
    Measured from the Figma frames (desktop 1280 x 900, phone 390 x 844) and the live login app.
    Desktop values first, phone overrides at the bottom. Same file is used by Login.vue. */
 
-:root {
+html:root {
   /* PrimeVue theme variables: keep the default green out of everything */
   --p-primary-color: #D84727; --p-primary-hover-color: #C23409; --p-primary-active-color: #BB371A; --p-primary-contrast-color: #fff;
   --p-focus-ring-color: transparent; --p-focus-ring-shadow: none;
@@ -123,4 +123,6 @@ body { font-family: var(--font); color: var(--text); background: #fff; -webkit-f
 /* beat PrimeVue's own state selectors so the live app's grey borders win */
 .ps-login .field.p-inputtext:enabled:hover, .ps-login .field.p-inputtext:enabled:focus { border-color: #DDDDDD; box-shadow: none; }
 .ps-login .region.p-select:not(.p-disabled):hover, .ps-login .region.p-select:not(.p-disabled).p-focus { border-color: #DDDDDD; box-shadow: none; }
-.p-select-option:not(.p-disabled).p-focus, .p-select-option.p-select-option-selected { background: #FDF4E8; color: #3A0600; }
+.p-select-overlay .p-select-list .p-select-option:not(.p-disabled).p-focus,
+.p-select-overlay .p-select-list .p-select-option.p-select-option-selected,
+.p-select-overlay .p-select-list .p-select-option.p-select-option-selected.p-focus { background: #FDF4E8; color: #3A0600; }
